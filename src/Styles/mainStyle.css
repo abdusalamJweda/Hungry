@@ -23,3 +23,9 @@
     transition-duration: .10s;
     box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
 }
+
+@media only screen and (max-width: 600px) {
+    .main {
+        margin:10px;
+    }
+  }

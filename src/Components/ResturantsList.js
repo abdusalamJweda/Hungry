@@ -5,43 +5,49 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
- 
-function ResturantsList(props){
-    const listItems = props.payload.map((item) =>
-    <TableRow>
-    <TableCell align="center">{item[1].title}</TableCell>
-    <TableCell align="center">{item[1].id}</TableCell>
-    <TableCell align="center">{item[1].userId}</TableCell>
-    <TableCell align="center">{item[1].title}</TableCell>
-</TableRow>
-);
-    return(
-        <div>
-            <h3>These resturants are within a 10K radius of you location... enjoy :)</h3>
-            <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+
+function ResturantsList(props) {
+  let resturants = Object.entries(props.payload);
+  // console.log(resturants[0][1]);
+  // console.log(Object.values(props.payload));
+
+
+  return (
+    <div>
+      <h3>These resturants are within a 10K radius of you location... enjoy :)</h3>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 50 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell align="center"> Resturant Name</TableCell>
-              <TableCell align="center">Rating</TableCell>
-              <TableCell align="center">How Far away from you </TableCell>
+              <TableCell align="center">How Far away from you (in meters) </TableCell>
+              <TableCell align="center">Address </TableCell>
+
               <TableCell align="center">  show on map</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {            listItems
-}
+            {
             
+            resturants[0][1].map((item,i) =>
+    <TableRow key={i}>
+                <TableCell key={item.title} align="center">{item.title}</TableCell>
+                <TableCell key={item.distance} align="center">{item.distance / 1000}</TableCell>
+                <TableCell key={item.address} align="center">{item.address.label}</TableCell>
+
+                <TableCell key={item.position.lat} align="center"><a href={'http://maps.google.com/maps?q='+ item.position.lat + ',' + item.position.lng}>show on maps</a></TableCell>
+              </TableRow>
+  
+  )
+            }
+
           </TableBody>
         </Table>
       </TableContainer>
-        </div>
-        
-    );
+    </div>
+
+  );
 }
 
 
-function calcDistance(){
-
-}
 export default ResturantsList

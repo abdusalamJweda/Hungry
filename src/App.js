@@ -7,52 +7,57 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.fetchResturants = this.fetchResturants.bind(this)
-    this.showPosition = this.showPosition.bind(this)
+    // this.setPosition = this.setPosition.bind(this)
 
     this.state = {
-      payload: null
+      payload: null,
+      latitude: null,
+      longitude: null
     };
   }
-  showPosition(position) {
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
-
-  }
   fetchResturants() {
+
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.showPosition);
-      fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json()).then((response) => {
-          let resturants = [];
-          for (var i in response)
-            resturants.push([i, response[i]]);
-          this.setState({ payload: resturants });
+      let self = this
+      let url = ''
+      navigator.geolocation.getCurrentPosition(async function (position) {
+        url = 'https://discover.search.hereapi.com/v1/discover?at=' + position.coords.latitude + ',' + position.coords.longitude + '&limit=10&q=restaurant&apiKey=' + process.env.REACT_APP_HERE_API_KEY
+        await fetch(url)
+        .then((response) => response.json())
+        .then(response => {
+          self.setState({ payload: response });
+
+          // console.log(response);
         }).catch(error => {
-          throw (error);
+          console.log(error);
         })
+      });
+
+
     }
+
   }
 
 
-    render(){
-      let resturantsList;
-      const payload = this.state.payload
-      if (payload !== null) {
-        resturantsList = <ResturantsList payload={payload}></ResturantsList>
-      }
-      return (
-        <div className='main'>
-          <h3 className='title'>Hungry? </h3>
-          <Button onClick={this.fetchResturants} variant="contained"> Click Me </Button>
-          {
-            resturantsList
-          }
-        </div>
-      );
+  render() {
+    let resturantsList;
+    const payload = this.state.payload
+    if (payload !== null) {
+      resturantsList = <ResturantsList payload={payload}></ResturantsList>
     }
-
-
+    return (
+      <div className='main'>
+        <h3 className='title'>Hungry? </h3>
+        <Button onClick={this.fetchResturants} variant="contained"> Click Me </Button>
+        {
+          resturantsList
+        }
+      </div>
+    );
   }
+
+
+}
 
 
 export default App;
