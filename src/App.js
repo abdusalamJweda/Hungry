@@ -7,16 +7,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.fetchResturants = this.fetchResturants.bind(this)
-    // this.setPosition = this.setPosition.bind(this)
 
     this.state = {
       payload: null,
-      latitude: null,
-      longitude: null
+
     };
   }
   fetchResturants() {
-
+ // fetchs resturant list
     if (navigator.geolocation) {
       let self = this
       let url = ''
@@ -26,8 +24,6 @@ class App extends Component {
         .then((response) => response.json())
         .then(response => {
           self.setState({ payload: response });
-
-          // console.log(response);
         }).catch(error => {
           console.log(error);
         })

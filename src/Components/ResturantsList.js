@@ -8,13 +8,10 @@ import Paper from '@mui/material/Paper';
 
 function ResturantsList(props) {
   let resturants = Object.entries(props.payload);
-  // console.log(resturants[0][1]);
-  // console.log(Object.values(props.payload));
-
 
   return (
     <div>
-      <h3>These resturants are within a 10K radius of you location... enjoy :)</h3>
+      <h3>These are the 10 closest resturants to your location... enjoy :)</h3>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 50 }} aria-label="simple table">
           <TableHead>
