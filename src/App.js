@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import './Styles/mainStyle.css';
+import Button from '@mui/material/Button';
+import ResturantsList from './Components/ResturantsList.js';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchResturants = this.fetchResturants.bind(this)
+    this.showPosition = this.showPosition.bind(this)
+    
+    this.state = {
+      payload:null
+    };
+  }
+   showPosition(position){
+    console.log( position.coords.latitude);
+    console.log( position.coords.longitude);
+
+  }
+   fetchResturants(){
+    if (navigator.geolocation) {
+      console.log(navigator.geolocation.getCurrentPosition(this.showPosition)); 
+    } else {
+      document.getElementById("demo").innerHTML =
+      "Geolocation is not supported by this browser.";
+    }
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json()).then((response) => {
+      let resturants = [];
+      for(var i in response)
+          resturants.push([i, response[i]]);
+          console.log(resturants);
+      this.setState({payload: resturants});
+    }).catch(error => {
+      throw(error);
+  })
+  }
+  
+  render(){
+    let resturantsList;
+    const payload = this.state.payload
+    if(payload!==null){
+      resturantsList = <ResturantsList payload={payload}></ResturantsList>
+    }
+    return (
+      <div className='main'>
+        <h3 className='title'>Hungry? </h3>
+        <Button onClick={this.fetchResturants} variant="contained"> Click Me </Button>
+        {
+        resturantsList
+        }
+      </div>
+    );
+  }
+  
+  
 }
+
 
 export default App;

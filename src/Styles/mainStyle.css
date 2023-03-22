@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal&display=swap');
+.main{
+    text-align: center;
+    margin:100px;
+}
+.title{
+    font-size: 70px;
+}
+.locate-btn{
+    font-size: 15px;
+    width: 100px;
+    height: 70px;
+    color: #fff;
+    background-color: #27ae60;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+}
+.locate-btn:hover{
+    background-color: #1e8449;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .10s;
+    box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
