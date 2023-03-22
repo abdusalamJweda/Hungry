@@ -7,12 +7,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
  
 function ResturantsList(props){
-    console.log(props.payload);
-    console.log(typeof props.payload);
-    // let resturants = [];
-    // for(var i in props)
-    //     resturants.push([i, props[i]]);
-
     const listItems = props.payload.map((item) =>
     <TableRow>
     <TableCell align="center">{item[1].title}</TableCell>
