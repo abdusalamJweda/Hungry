@@ -7,8 +7,8 @@ Hungry is a restaurant finder app that helps users find the best places to eat i
 ## Prerequisites
 Before you can run the Hungry app locally, you'll need to have a few things installed on your machine:
 
-- Node.js (version 14.0 or higher)
-- npm (version 6.0 or higher)
+- Node.js 
+- npm 
 - Git
 
 ## Installing
